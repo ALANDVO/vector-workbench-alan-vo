@@ -1,0 +1,35 @@
+# Dependencies and virtual environments
+.venv/
+venv/
+node_modules/
+dist/
+build/
+*.egg-info/
+
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local database and state
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# Environment and sensitive files
+.env
+.env.local
+*.pem
+*.key
+
+# IDE and agent metadata
+.vscode/
+.idea/
+.omp/
+.antigravitycli/

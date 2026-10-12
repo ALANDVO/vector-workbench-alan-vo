@@ -1,0 +1,45 @@
+{
+  "realm": "vector-workbench",
+  "enabled": true,
+  "displayName": "Vector Workbench Identity Realm",
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "roles": {
+    "realm": [
+      { "name": "viewer", "description": "Read-only viewer for models and benchmarks" },
+      { "name": "operator", "description": "Can load models, run inferences, and trigger benchmarks" },
+      { "name": "admin", "description": "Full administrative privileges including model unloading and system diagnostics" }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "vector-workbench-app",
+      "name": "Vector Workbench SPA Client",
+      "enabled": true,
+      "publicClient": true,
+      "protocol": "openid-connect",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "redirectUris": ["http://127.0.0.1:3000/*", "http://localhost:3000/*"],
+      "webOrigins": ["http://127.0.0.1:3000", "http://localhost:3000"]
+    }
+  ],
+  "identityProviders": [
+    {
+      "alias": "enterprise-saml-idp",
+      "displayName": "Enterprise SAML Broker",
+      "providerId": "saml",
+      "enabled": false,
+      "config": {
+        "entityId": "http://127.0.0.1:8080/realms/vector-workbench",
+        "singleSignOnServiceUrl": "https://idp.example.com/saml2/sso",
+        "nameIDPolicyFormat": "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+      }
+    }
+  ]
+}

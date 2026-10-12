@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "name": "vector-workbench-alan-vo",
+  "owner": "ALANDVO",
+  "email": "alanvo@gmail.com",
+  "domain": "AI/ML developer tools",
+  "summary": "Work in progress: vector-workbench-alan-vo",
+  "workflows": [
+    "Ternary quantization matrix engine and AbsMax activation simulation",
+    "FFN activation graph calibration and Squared ReLU vs SiLU perplexity validation",
+    "Persistent in-memory inference server and model session runtime",
+    "Hardware compiler matrix and build hazard diagnostic analyzer"
+  ],
+  "auth": "oidc-keycloak-saml-broker",
+  "llm_providers": [
+    "openai-compatible",
+    "anthropic",
+    "gemini",
+    "ollama"
+  ],
+  "status": "work-in-progress"
+}
