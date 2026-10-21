@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "current_feature": "feature-lut-kernel-benchmarks",
+  "features": [
+    {
+      "id": "feature-core-inference-engine",
+      "title": "Deterministic 1-bit / 1.58-bit Ternary Matrix Engine, FFN Squared ReLU Graph, and In-Memory Server",
+      "status": "done",
+      "acceptance": [
+        "Quantize continuous weights into ternary {-1, 0, +1} values with deterministic per-tensor scaling",
+        "Implement FFN activation forward graph comparing Squared ReLU and SiLU with perplexity metrics",
+        "Provide in-memory model execution and persistent chat completion API without reloading weights",
+        "Support token-based role authentication with secure local demo fallback"
+      ],
+      "implementation": [
+        "backend/app/main.py",
+        "backend/app/core/ternary_engine.py",
+        "backend/app/core/activation_graph.py",
+        "backend/app/services/inference_service.py",
+        "backend/app/api/inference.py",
+        "backend/app/api/auth.py",
+        "frontend/src/App.tsx",
+        "frontend/src/components/InferencePlayground.tsx"
+      ],
+      "tests": [
+        "backend/tests/test_ternary_engine.py",
+        "backend/tests/test_activation_graph.py",
+        "backend/tests/test_inference_api.py",
+        "frontend/src/__tests__/InferencePlayground.test.tsx"
+      ]
+    },
+  {
+      "id": "feature-build-diagnostics",
+      "title": "Compiler & Environment Matrix Diagnostic Suite",
+      "status": "done",
+      "acceptance": [
+        "Matrix scanner identifies compiler flags, Clang 20 const-pointer compatibility, and ARM vector type hazards",
+        "Diagnostic reporting exports environment verification recipes"
+      ],
+      "implementation": [
+        "backend/app/services/diagnostics_service.py",
+        "backend/app/api/diagnostics.py",
+        "backend/tests/test_benchmarks_and_diagnostics.py",
+        "frontend/src/components/DiagnosticsMatrix.tsx"
+      ],
+      "tests": [
+        "backend/tests/test_benchmarks_and_diagnostics.py::test_evaluate_compiler_matrix_clang20_hazard",
+        "backend/tests/test_benchmarks_and_diagnostics.py::test_evaluate_compiler_matrix_arm_hazard"
+      ]
+    },
+    {
+      "id": "feature-lut-kernel-benchmarks",
+      "title": "AVX-512 & NEON 5-Activation Ternary Look-Up Table Kernel Profiler",
+      "status": "in_progress",
+      "acceptance": [
+        "Benchmarks multi-activation LUT packing throughput against standard scalar ternary dot products",
+        "Generates hardware memory bandwidth and operational intensity comparison charts"
+      ],
+      "implementation": [],
+      "tests": []
+    }
+    {
+      "id": "feature-llm-advisory-eval",
+      "title": "Multi-Provider Opt-In LLM Advisory Analysis & Evaluation CLI",
+      "status": "planned",
+      "acceptance": [
+        "Deterministic evaluation CLI measures quantization perplexity across custom test corpora",
+        "Optional provider adapter formats evaluation reports using OpenAI/Anthropic/Gemini/Ollama endpoints"
+      ]
+    }
+  ]
+}
