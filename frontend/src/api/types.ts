@@ -89,7 +89,7 @@ export interface BenchmarkRun {
   benchmark_type: string;
   metric_name: string;
   metric_value: number;
-  details: Record<string, any>;
+  details: Record<string, unknown>;
 }
 
 export interface HazardItem {
@@ -132,6 +132,35 @@ export interface AdvisoryReportResponse {
   is_advisory_only: boolean;
   grounded_findings: string[];
   analysis_text: string;
+}
+
+export interface LUTKernelResult {
+  group_size: number;
+  dim_m: number;
+  dim_n: number;
+  dim_k: number;
+  additions_count: number;
+  multiplications_count: number;
+  lut_lookups: number;
+  latency_microseconds: number;
+  memory_bandwidth_mb_s: number;
+  operational_intensity: number;
+  speedup_vs_scalar: number;
+}
+
+export interface LUTBenchmarkResponse {
+  scalar_result: LUTKernelResult;
+  lut3_result: LUTKernelResult;
+  lut5_result: LUTKernelResult;
+  speedup_3ary_vs_scalar: number;
+  speedup_5ary_vs_scalar: number;
+  speedup_5ary_vs_3ary: number;
+  bandwidth_scalar_mb_s: number;
+  bandwidth_lut3_mb_s: number;
+  bandwidth_lut5_mb_s: number;
+  operational_intensity_scalar: number;
+  operational_intensity_lut3: number;
+  operational_intensity_lut5: number;
 }
 
 export interface UserProfile {

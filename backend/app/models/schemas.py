@@ -162,9 +162,50 @@ class ActivationCompareResponse(BaseModel):
 class BenchmarkRunRequest(BaseModel):
     """Request to execute a benchmark suite."""
 
-    benchmark_type: Literal["perplexity", "quantization_fidelity", "throughput"]
+    benchmark_type: Literal["perplexity", "quantization_fidelity", "throughput", "lut_kernels"]
     matrix_dim: int = Field(default=128, ge=32, le=512)
     num_layers: int = Field(default=30, ge=1, le=48)
+
+
+class LUTBenchmarkRequest(BaseModel):
+    """Request to run LUT kernel benchmark suite."""
+
+    dim_m: int = Field(default=128, ge=16, le=512)
+    dim_n: int = Field(default=128, ge=16, le=512)
+    dim_k: int = Field(default=128, ge=16, le=512)
+
+
+class LUTKernelResultSchema(BaseModel):
+    """Single LUT kernel benchmark result."""
+
+    group_size: int
+    dim_m: int
+    dim_n: int
+    dim_k: int
+    additions_count: int
+    multiplications_count: int
+    lut_lookups: int
+    latency_microseconds: float
+    memory_bandwidth_mb_s: float
+    operational_intensity: float
+    speedup_vs_scalar: float
+
+
+class LUTBenchmarkResponse(BaseModel):
+    """Complete LUT benchmark comparison report."""
+
+    scalar_result: LUTKernelResultSchema
+    lut3_result: LUTKernelResultSchema
+    lut5_result: LUTKernelResultSchema
+    speedup_3ary_vs_scalar: float
+    speedup_5ary_vs_scalar: float
+    speedup_5ary_vs_3ary: float
+    bandwidth_scalar_mb_s: float
+    bandwidth_lut3_mb_s: float
+    bandwidth_lut5_mb_s: float
+    operational_intensity_scalar: float
+    operational_intensity_lut3: float
+    operational_intensity_lut5: float
 
 
 class BenchmarkRunResponse(BaseModel):

@@ -11,8 +11,11 @@ from app.models.schemas import (
     ActivationCompareResponse,
     BenchmarkRunRequest,
     BenchmarkRunResponse,
+    LUTBenchmarkRequest,
+    LUTBenchmarkResponse,
 )
 from app.services.benchmark_service import benchmark_service
+from app.services.lut_benchmark_service import lut_benchmark_service
 
 router = APIRouter(prefix="/benchmarks", tags=["Benchmarks & Calibration"])
 
@@ -113,3 +116,16 @@ def get_benchmark_history(
     """Retrieve historical benchmark experiment records."""
     runs = db.get_benchmark_runs(limit=25)
     return {"runs": runs}
+
+
+@router.post("/lut-kernels", response_model=LUTBenchmarkResponse)
+def run_lut_kernel_benchmark(
+    req: LUTBenchmarkRequest,
+    user: Annotated[UserPrincipal, Depends(require_role("operator"))],
+):
+    """Run LUT kernel benchmark suite comparing scalar, 3-ary, and 5-ary LUT throughput."""
+    return lut_benchmark_service.run_lut_benchmark_suite(
+        dim_m=req.dim_m,
+        dim_n=req.dim_n,
+        dim_k=req.dim_k,
+    )

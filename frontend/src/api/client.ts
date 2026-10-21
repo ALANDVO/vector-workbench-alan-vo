@@ -7,6 +7,7 @@ import {
   ChatMessage,
   CompilerDiagnosticResponse,
   CompletionResponse,
+  LUTBenchmarkResponse,
   ModelInfo,
   QuantizeResponse,
   UserProfile,
@@ -164,10 +165,16 @@ export const apiClient = {
       }),
     });
   },
-
   getBenchmarkHistory: async (): Promise<BenchmarkRun[]> => {
     const res = await request<{ runs: BenchmarkRun[] }>("/benchmarks/history");
     return res.runs;
+  },
+
+  runLUTKernelBenchmark: async (dimM: number = 128, dimN: number = 128, dimK: number = 128): Promise<LUTBenchmarkResponse> => {
+    return request<LUTBenchmarkResponse>("/benchmarks/lut-kernels", {
+      method: "POST",
+      body: JSON.stringify({ dim_m: dimM, dim_n: dimN, dim_k: dimK }),
+    });
   },
 
   evaluateCompiler: async (

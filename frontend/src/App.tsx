@@ -8,10 +8,11 @@ import { DiagnosticsMatrix } from "./components/DiagnosticsMatrix.tsx";
 import { Header } from "./components/Header.tsx";
 import { InferencePlayground } from "./components/InferencePlayground.tsx";
 import { LLMAdvisoryPanel } from "./components/LLMAdvisoryPanel.tsx";
+import { LUTBenchmarkProfiler } from "./components/LUTBenchmarkProfiler.tsx";
 
 export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<
-    "inference" | "activation" | "benchmarks" | "diagnostics" | "audit" | "advisory"
+    "inference" | "activation" | "benchmarks" | "lut_benchmarks" | "diagnostics" | "audit" | "advisory"
   >("inference");
   const [user, setUser] = useState<UserProfile | null>(null);
   const [activeRole, setActiveRole] = useState<"viewer" | "operator" | "admin">("operator");
@@ -64,7 +65,12 @@ export const App: React.FC = () => {
           className={`tab-btn ${activeTab === "benchmarks" ? "active" : ""}`}
           onClick={() => setActiveTab("benchmarks")}
         >
-          Kernel Benchmarks (Issue #569)
+        </button>
+        <button
+          className={`tab-btn ${activeTab === "lut_benchmarks" ? "active" : ""}`}
+          onClick={() => setActiveTab("lut_benchmarks")}
+        >
+          LUT Kernel Profiler (Issue #569)
         </button>
         <button
           className={`tab-btn ${activeTab === "diagnostics" ? "active" : ""}`}
@@ -96,6 +102,7 @@ export const App: React.FC = () => {
             {activeTab === "inference" && <InferencePlayground />}
             {activeTab === "activation" && <ActivationGraphViewer />}
             {activeTab === "benchmarks" && <BenchmarkRunner />}
+            {activeTab === "lut_benchmarks" && <LUTBenchmarkProfiler />}
             {activeTab === "diagnostics" && <DiagnosticsMatrix />}
             {activeTab === "audit" && <AuditLogViewer />}
             {activeTab === "advisory" && <LLMAdvisoryPanel />}
