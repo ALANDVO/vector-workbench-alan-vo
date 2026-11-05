@@ -33,3 +33,11 @@ htmlcov/
 .idea/
 .omp/
 .antigravitycli/
+.turbo/
+.env.*.local
+**/data/media/
+*.pyc
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm

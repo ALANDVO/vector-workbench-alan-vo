@@ -17,7 +17,7 @@ def main():
     eval_parser = subparsers.add_parser("evaluate", help="Run reproducible evaluation benchmarks")
     eval_parser.add_argument(
         "--benchmark",
-        choices=["perplexity", "quantization", "throughput", "lut", "all"],
+        choices=["perplexity", "quantization", "throughput", "lut", "lut-scalar", "lut-3ary", "lut-5ary", "all"],
         default="all",
         help="Benchmark suite to execute",
     )
@@ -62,12 +62,33 @@ def main():
             print(f"Running Integer Throughput Benchmark ({args.dim}x{args.dim})...")
         results["throughput"] = benchmark_service.run_throughput_benchmark(dim=args.dim)
 
+    if args.benchmark in ("lut-scalar", "all"):
+        if not args.quiet:
+            print(f"Running LUT Scalar Ternary GEMM Benchmark ({args.dim}x{args.dim}x{args.dim})...")
+        results["lut_scalar"] = lut_benchmark_service.benchmark_scalar_ternary_gemm(
+            dim_m=args.dim, dim_n=args.dim, dim_k=args.dim
+        ).__dict__
+
+    if args.benchmark in ("lut-3ary", "all"):
+        if not args.quiet:
+            print(f"Running LUT 3-ary Kernel Benchmark ({args.dim}x{args.dim}x{args.dim})...")
+        results["lut_3ary"] = lut_benchmark_service.benchmark_lut3_kernel(
+            dim_m=args.dim, dim_n=args.dim, dim_k=args.dim
+        ).__dict__
+
+    if args.benchmark in ("lut-5ary", "all"):
+        if not args.quiet:
+            print(f"Running LUT 5-ary Kernel Benchmark ({args.dim}x{args.dim}x{args.dim})...")
+        results["lut_5ary"] = lut_benchmark_service.benchmark_lut5_kernel(
+            dim_m=args.dim, dim_n=args.dim, dim_k=args.dim
+        ).__dict__
+
     if args.benchmark in ("lut", "all"):
         if not args.quiet:
-            print(f"Running LUT Kernel Benchmark ({args.dim}x{args.dim}x{args.dim})...")
+            print(f"Running LUT Kernel Benchmark Suite ({args.dim}x{args.dim}x{args.dim})...")
         results["lut"] = lut_benchmark_service.run_lut_benchmark_suite(
             dim_m=args.dim, dim_n=args.dim, dim_k=args.dim
-        )
+        ).__dict__
 
     if not args.quiet:
         print("\n================== EVALUATION RESULTS ==================")
