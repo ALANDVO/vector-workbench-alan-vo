@@ -30,3 +30,7 @@ All notable changes to Vector Workbench are documented in this file.
 - Docker compose configuration with Keycloak SSO integration and persistent storage.
 
 Maintainer: Alan Vo <alanvo@gmail.com>
+
+---
+
+Alan Vo · [alanvo.net](https://alanvo.net)

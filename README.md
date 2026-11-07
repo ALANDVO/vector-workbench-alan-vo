@@ -191,3 +191,7 @@ The deterministic core engine operates completely offline without external API k
 ---
 
 Maintainer: **Alan Vo** &lt;alanvo@gmail.com&gt;
+
+---
+
+Alan Vo · [alanvo.net](https://alanvo.net)

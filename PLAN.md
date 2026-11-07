@@ -67,3 +67,6 @@ Acceptance:
 - Deterministic evaluation CLI measures quantization perplexity across custom test corpora
 - Optional provider adapter formats evaluation reports using OpenAI/Anthropic/Gemini/Ollama endpoints
 
+---
+
+Alan Vo · [alanvo.net](https://alanvo.net)
