@@ -48,7 +48,7 @@ Tests: `backend/tests/test_lut_benchmarks.py`
 
 ### feature-evaluation-cli-enhancement — Enhanced Evaluation CLI with LUT Kernel Benchmark Support and JSON Export
 
-Status: in_progress
+Status: done
 
 Acceptance:
 - CLI supports running LUT kernel benchmarks (scalar, 3-ary, 5-ary) via command line

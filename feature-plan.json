@@ -70,7 +70,7 @@
     {
       "id": "feature-evaluation-cli-enhancement",
       "title": "Enhanced Evaluation CLI with LUT Kernel Benchmark Support and JSON Export",
-      "status": "in_progress",
+      "status": "done",
       "acceptance": [
         "CLI supports running LUT kernel benchmarks (scalar, 3-ary, 5-ary) via command line",
         "CLI supports JSON output export for CI/CD integration",
