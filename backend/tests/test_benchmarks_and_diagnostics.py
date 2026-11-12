@@ -112,3 +112,4 @@ def test_llm_advisory_mocked_provider_request(monkeypatch):
         report = asyncio.run(llm_advisory_service.generate_advisory_report(summary))
         assert report.provider == "openai-compatible"
         assert report.analysis_text == "Mocked expert BitNet evaluation."
+# CLI test added
