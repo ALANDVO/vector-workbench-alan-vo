@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.5.0 — work-in-progress checkpoint
+
+Partial code published for continued development. Known issues: STATUS.md.
+
+## 1.4.1 — work-in-progress checkpoint
+
+### Added
+- `llm-advise` subcommand to the Evaluation CLI for multi-provider LLM advisory analysis
+- Perplexity calibration benchmark (Squared ReLU vs SiLU) with deterministic offline heuristic
+- Optional provider adapter formats (OpenAI/Anthropic/Gemini/Ollama) for evaluation reports
+- JSON output export for CI/CD integration including advisory report fields
+
+### Changed
+- Updated `backend/app/cli.py` with new `llm-advise` subcommand and `--provider` option
+
 ## 1.4.0 — work-in-progress checkpoint
 
 Partial code published for continued development. Known issues: STATUS.md.

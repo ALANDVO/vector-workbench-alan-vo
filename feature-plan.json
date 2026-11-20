@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "current_feature": "feature-evaluation-cli-enhancement",
+  "current_feature": "feature-llm-advisory-eval",
   "features": [
     {
       "id": "feature-core-inference-engine",
@@ -86,10 +86,17 @@
     {
       "id": "feature-llm-advisory-eval",
       "title": "Multi-Provider Opt-In LLM Advisory Analysis & Evaluation CLI",
-      "status": "planned",
+      "status": "in_progress",
       "acceptance": [
         "Deterministic evaluation CLI measures quantization perplexity across custom test corpora",
         "Optional provider adapter formats evaluation reports using OpenAI/Anthropic/Gemini/Ollama endpoints"
+      ],
+      "implementation": [
+        "backend/app/cli.py (llm-advise subcommand)"
+      ],
+      "tests": [
+        "backend/tests/test_benchmarks_and_diagnostics.py::test_llm_advisory_offline_deterministic",
+        "backend/tests/test_benchmarks_and_diagnostics.py::test_llm_advisory_mocked_provider_request"
       ]
     }
   ]

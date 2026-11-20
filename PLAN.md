@@ -4,7 +4,7 @@ Each round completes one feature or repair. Future items are planned, not implem
 
 ## Current round
 
-feature-evaluation-cli-enhancement
+feature-llm-advisory-eval
 
 ## Roadmap
 
@@ -61,11 +61,15 @@ Tests: `backend/tests/test_benchmarks_and_diagnostics.py`
 
 ### feature-llm-advisory-eval — Multi-Provider Opt-In LLM Advisory Analysis & Evaluation CLI
 
-Status: planned
+Status: in_progress
 
 Acceptance:
 - Deterministic evaluation CLI measures quantization perplexity across custom test corpora
 - Optional provider adapter formats evaluation reports using OpenAI/Anthropic/Gemini/Ollama endpoints
+
+Implementation: `backend/app/cli.py (llm-advise subcommand)`
+
+Tests: `backend/tests/test_benchmarks_and_diagnostics.py::test_llm_advisory_offline_deterministic`, `backend/tests/test_benchmarks_and_diagnostics.py::test_llm_advisory_mocked_provider_request`
 
 ---
 
