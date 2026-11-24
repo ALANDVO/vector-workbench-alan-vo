@@ -20,14 +20,21 @@ class LLMAdvisoryService:
         cls,
         benchmark_summary: Dict[str, str],
         custom_context: str = "",
+        provider_override: Optional[str] = None,
     ) -> AdvisoryReportResponse:
         """Produce an advisory report.
 
         If LLM_API_KEY is not configured, returns deterministic offline heuristic
-        analysis grounded in benchmark measurements.
+        analysis grounded in benchmark measurements. An explicit ``provider_override``
+        (e.g. from the CLI/API caller) takes precedence over the ambient setting; use
+        the literal ``"offline"`` to force the deterministic path even when a key exists.
         """
         api_key = settings.llm_api_key.strip()
-        provider = settings.llm_provider.lower()
+        provider = (
+            provider_override.strip().lower()
+            if provider_override
+            else settings.llm_provider.lower()
+        )
         model = settings.llm_model
 
         grounded_points = [
@@ -38,7 +45,7 @@ class LLMAdvisoryService:
             f"Ternary Compression: {benchmark_summary.get('compression', '8.0x (1.58-bit packed)')}",
         ]
 
-        if not api_key:
+        if provider == "offline" or not api_key:
             # Deterministic offline analysis grounded in measurements
             offline_analysis = (
                 "### Deterministic Architectural Advisory\n\n"
