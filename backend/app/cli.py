@@ -158,6 +158,7 @@ def main():
             llm_advisory_service.generate_advisory_report(
                 benchmark_summary=benchmark_summary,
                 custom_context="",
+                provider_override=args.provider,
             )
         )
 
