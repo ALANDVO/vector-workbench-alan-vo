@@ -113,3 +113,68 @@ def test_llm_advisory_mocked_provider_request(monkeypatch):
         assert report.provider == "openai-compatible"
         assert report.analysis_text == "Mocked expert BitNet evaluation."
 # CLI test added
+
+def test_llm_advise_cli_output():
+    """Test llm-advise CLI subcommand with --output flag for JSON export."""
+    import subprocess
+    import json
+    from pathlib import Path
+
+    env = dict(__import__("os").environ)
+    env["PYTHONPATH"] = "backend"
+    result = subprocess.run(
+        [
+            "python3",
+            "-m",
+            "app.cli",
+            "llm-advise",
+            "--layers",
+            "5",
+            "--provider",
+            "offline",
+            "--output",
+            "/tmp/test_advisory_output.json",
+        ],
+        capture_output=True,
+        text=True,
+        cwd="/var/lib/alan-portfolio/workspaces/alan/vector-workbench-alan-vo",
+        env=env,
+    )
+    assert result.returncode == 0, f"CLI failed: {result.stderr}"
+    # Verify JSON output file was created and is valid
+    output_path = Path("/tmp/test_advisory_output.json")
+    assert output_path.exists(), "Output JSON file was not created"
+    with output_path.open() as f:
+        data = json.load(f)
+    assert "perplexity" in data
+    assert "advisory_report" in data
+
+
+def test_llm_advise_cli_quiet_mode():
+    """Test llm-advise CLI subcommand --quiet suppresses console output."""
+    import subprocess
+
+    env = dict(__import__("os").environ)
+    env["PYTHONPATH"] = "backend"
+    result = subprocess.run(
+        [
+            "python3",
+            "-m",
+            "app.cli",
+            "llm-advise",
+            "--layers",
+            "5",
+            "--provider",
+            "offline",
+            "--quiet",
+        ],
+        capture_output=True,
+        text=True,
+        cwd="/var/lib/alan-portfolio/workspaces/alan/vector-workbench-alan-vo",
+        env=env,
+    )
+    assert result.returncode == 0
+    # Quiet mode should produce no stdout
+    assert result.stdout.strip() == "", f"Quiet mode produced stdout: {result.stdout}"
+    # But should still complete successfully
+    assert result.returncode == 0
